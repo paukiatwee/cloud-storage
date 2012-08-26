@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>me.dreamand.cloud.storage</groupId>
+  <artifactId>cloud-storage</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Cloud Storage API for developer</name>
+  <url>http://dreamand.me</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <com.amazonaws.sdk.version>1.3.18</com.amazonaws.sdk.version>
+    <org.apache.httpcomponents>4.2.1</org.apache.httpcomponents>
+    <org.codehaus.jackson.version>1.9.9</org.codehaus.jackson.version>
+    <junit.version>4.10</junit.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>${com.amazonaws.sdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${org.apache.httpcomponents}</version>
+    </dependency>
+    <!-- Jackson JSON Mapper -->
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <version>${org.codehaus.jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>${org.codehaus.jackson.version}</version>
+    </dependency>
+    
+    <!--  unit testing -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
