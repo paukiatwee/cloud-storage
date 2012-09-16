@@ -55,7 +55,12 @@ public class S3UploadService implements UploadService {
 
     @Override
     public String upload(File file) {
-        PutObjectRequest request = new PutObjectRequest(getBucket(), getKey() + file.getName(), file);
+        return upload(getKey(), file);
+    }
+    
+    @Override
+    public String upload(String path, File file) {
+        PutObjectRequest request = new PutObjectRequest(getBucket(), path + file.getName(), file);
         switch (permissions) {
         case PRIVATE:
             // do nothing, default is private
@@ -65,11 +70,16 @@ public class S3UploadService implements UploadService {
             break;
         }
         client.putObject(request);
-        return String.format(URL_PATTERN, getBucket(), getKey(), file.getName());
+        return String.format(URL_PATTERN, getBucket(), path, file.getName());
     }
     
     @Override
     public String upload(InputStream is, String name, String contentType) {
+        return upload(getKey(), is, name, contentType);
+    }
+    
+    @Override
+    public String upload(String path, InputStream is, String name, String contentType) {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(contentType);
         long length = 0;
@@ -79,7 +89,7 @@ public class S3UploadService implements UploadService {
             throw new RuntimeException(e.getMessage(), e);
         }
         metadata.setContentLength(length);
-        PutObjectRequest request = new PutObjectRequest(getBucket(), getKey() + name, is, metadata);
+        PutObjectRequest request = new PutObjectRequest(getBucket(), path + name, is, metadata);
         switch (permissions) {
         case PRIVATE:
             // do nothing, default is private
@@ -89,7 +99,7 @@ public class S3UploadService implements UploadService {
             break;
         }
         client.putObject(request);
-        return String.format(URL_PATTERN, getBucket(), getKey(), name);
+        return String.format(URL_PATTERN, getBucket(), path, name);
     }
     
     /**

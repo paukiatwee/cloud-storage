@@ -44,6 +44,14 @@ public interface UploadService {
     String upload(File file);
     
     /**
+     * Upload file to cloud storage
+     * @param path where the file upload to
+     * @param file to be upload
+     * @return the url to the file
+     */
+    String upload(String path, File file);
+    
+    /**
      * Upload file via input stream
      * @param is of the file
      * @param name of the file
@@ -51,4 +59,14 @@ public interface UploadService {
      * @return the url to the file
      */
     String upload(InputStream is, String name, String contentType);
+    
+    /**
+     * Upload file via input stream
+     * @param path where the file upload to
+     * @param is of the file
+     * @param name of the file
+     * @param contentType of the file
+     * @return the url to the file
+     */
+    String upload(String path, InputStream is, String name, String contentType);
 }
