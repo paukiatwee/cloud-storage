@@ -31,6 +31,7 @@ public class S3UploadService implements UploadService {
     private Permissions permissions = Permissions.PRIVATE;
     private String bucket;
     private String key;
+    private String cacheControl;
     public static final String URL_PATTERN = "https://%s.s3.amazonaws.com/%s%s";
     
 
@@ -82,6 +83,9 @@ public class S3UploadService implements UploadService {
     public String upload(String path, InputStream is, String name, String contentType) {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(contentType);
+        if(cacheControl != null) {
+            metadata.setCacheControl(cacheControl);
+        }
         long length = 0;
         try {
             length = is.available();
@@ -106,12 +110,14 @@ public class S3UploadService implements UploadService {
      * Set the AWS S3 properties
      * <code>bucket</code> for the bucket name.
      * <code>key</code> for the key of the file, which is the folder where the file will
+     * <code>cacheControl</code> for the http cache control header, e.g. max-age=155520000, public
      * upload to, default value is empty string.
      */
     @Override
     public void setProperties(Map<String, String> properties) {
         bucket = properties.get("bucket");
         key = properties.get("key");
+        cacheControl = properties.get("cacheControl");
         if(bucket == null) {
             throw new IllegalArgumentException("\"bucket\" is not set, this is required property.");
         }
